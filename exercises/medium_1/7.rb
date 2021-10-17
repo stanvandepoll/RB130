@@ -38,3 +38,24 @@ p array == %w(Kim Pete Tyler alice bonnie rachel sue)
 array = %w(sue Pete alice Tyler rachel Kim bonnie)
 bubble_sort!(array) { |first, second| first.downcase <= second.downcase }
 p array == %w(alice bonnie Kim Pete rachel sue Tyler)
+
+def bubble_sort_further!(array, &compare_by)
+  compare_by ||= :self.to_proc
+
+  loop do
+    swapped = false
+    1.upto(array.size - 1) do |index|
+      next if compare_by.call(array[index - 1]) <= compare_by.call(array[index])
+
+      array[index - 1], array[index] = array[index], array[index - 1]
+      swapped = true
+    end
+
+    break unless swapped
+  end
+  nil
+end
+
+array = %w(sue Pete alice Tyler rachel Kim bonnie)
+bubble_sort_further!(array) { |value| value.downcase }
+p array == %w(alice bonnie Kim Pete rachel sue Tyler)
