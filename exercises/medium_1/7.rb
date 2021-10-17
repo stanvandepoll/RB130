@@ -1,12 +1,10 @@
-def bubble_sort!(array)
+def bubble_sort!(array, &comparer)
+  comparer ||= Proc.new { |first, second| first <= second }
+
   loop do
     swapped = false
     1.upto(array.size - 1) do |index|
-      if block_given?
-        next if yield(array[index - 1], array[index])
-      else
-        next if array[index - 1] <= array[index]
-      end
+      next if comparer.call(array[index - 1], array[index])
 
       array[index - 1], array[index] = array[index], array[index - 1]
       swapped = true
