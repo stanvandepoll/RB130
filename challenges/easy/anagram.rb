@@ -36,7 +36,7 @@ class Anagram
     candidates.select do |candidate|
       down_candidate = candidate.downcase
       next if @word == down_candidate
-      
+
       sorted_word == down_candidate.chars.sort
     end
   end
