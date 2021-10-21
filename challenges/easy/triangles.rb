@@ -35,11 +35,11 @@ algo
 class Triangle
   def initialize(*sides)
     @sides = sides
+    raise ArgumentError unless valid?
   end
 
   def kind
-    unique_side_lengths = @sides.uniq.size
-    case unique_side_lengths
+    case @sides.uniq.size
     when 1
       'equilateral'
     when 2
@@ -47,5 +47,12 @@ class Triangle
     else
       'scalene'
     end
+  end
+
+  def valid?
+    @sides.all?(&:positive?) &&
+      @sides[0] + @sides[1] > @sides[2] &&
+      @sides[0] + @sides[2] > @sides[1] &&
+      @sides[1] + @sides[2] > @sides[0]
   end
 end
