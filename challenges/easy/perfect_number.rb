@@ -22,24 +22,24 @@ module PerfectNumber
     number_type(number, aliquot_sum)
   end
 
-  private
+  class << self
+    private
 
-  def self.find_divisor_sum(number)
-    sum = 0
-    1.upto(number - 1) do |divisor|
-      sum += divisor if number % divisor == 0
+    def find_divisor_sum(number)
+      1.upto(number - 1).select do |divisor|
+        number % divisor == 0
+      end.sum
     end
-    sum
-  end
 
-  def self.number_type(number, aliquot_sum)
-    case aliquot_sum <=> number
-    when 1
-      'abundant'
-    when -1
-      'deficient'
-    when 0
-      'perfect'
+    def number_type(number, aliquot_sum)
+      case aliquot_sum <=> number
+      when 1
+        'abundant'
+      when -1
+        'deficient'
+      when 0
+        'perfect'
+      end
     end
   end
 end
