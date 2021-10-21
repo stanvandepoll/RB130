@@ -28,7 +28,7 @@ class DNA
     shortest_strand_length = [@strand.size, other_strand.size].min
     hamming_number = 0
 
-    0.upto(shortest_strand_length - 1) do |index|
+    shortest_strand_length.times do |index|
       hamming_number += 1 if @strand[index] != other_strand[index]
     end
 
