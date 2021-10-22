@@ -32,10 +32,11 @@ class Series
 
   def slices(slice_length)
     raise ArgumentError if slice_length > @number_string.size
-    
+
     slices = []
     0.upto(@number_string.size - slice_length) do |start_index|
-      slice = @number_string[start_index, slice_length].chars.map(&:to_i)
+      substring = @number_string[start_index, slice_length]
+      slice = substring.chars.map(&:to_i)
       slices << slice
     end
     slices
