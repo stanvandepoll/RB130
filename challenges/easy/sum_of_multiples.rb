@@ -37,16 +37,18 @@ class SumOfMultiples
   end
 
   def self.to(limit)
-    new(3, 5).to(limit)
+    new.to(limit)
   end
 
   def to(limit)
-    multiples = []
-    1.upto(limit - 1) do |current_number|
-      next unless @factors.any? { |factor| current_number % factor == 0 }
+    1.upto(limit - 1).select do |current_number|
+      multiple?(current_number)
+    end.sum
+  end
 
-      multiples << current_number
-    end
-    multiples.sum
+  private
+
+  def multiple?(number)
+    @factors.any? { |factor| (number % factor).zero? }
   end
 end
