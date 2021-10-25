@@ -40,6 +40,8 @@ algo:
 =end
 
 class Robot
+  LETTERS = ('A'..'Z').to_a
+  DIGITS = ('0'..'9').to_a
   @@used_names = []
 
   def initialize
@@ -47,6 +49,7 @@ class Robot
   end
 
   def reset
+    @@used_names.delete(@name)
     @name = generate_name
   end
 
@@ -59,12 +62,16 @@ class Robot
   def generate_name
     generated_name = nil
     loop do
-      letters = ('A'..'Z').to_a
-      digits = ('0'..'9').to_a
-      generated_name = letters.sample + letters.sample + digits.sample + digits.sample + digits.sample
-      break unless @@used_names.include?(generated_name)
+      generated_name = ''
+      2.times { generated_name << LETTERS.sample }
+      3.times { generated_name << DIGITS.sample }
+      break unless name_used?(generated_name)
     end
     @@used_names << generated_name  
     generated_name
+  end
+
+  def name_used?(name_to_check)
+    @@used_names.include?(name_to_check)
   end
 end
