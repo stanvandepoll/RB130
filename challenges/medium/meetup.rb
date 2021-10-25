@@ -32,6 +32,11 @@ algo:
 =end
 
 class Meetup
+  SCHEDULE_START_DAY = {
+    'first' => 1, 'second' => 8, 'third' => 15, 'fourth' => 22,
+    'fifth' => 29, 'teenth' => 13
+  }.freeze
+
   def initialize(year, month)
     @days = generate_days(year, month)
   end
@@ -39,7 +44,7 @@ class Meetup
   def day(weekday, descriptor)
     @days.find do |day|
       day.send("#{weekday.downcase}?") &&
-        descriptive_match?(day, descriptor)
+        descriptive_match?(day, descriptor.downcase)
     end
   end
 
@@ -60,23 +65,15 @@ class Meetup
   end
 
   def descriptive_match?(day, descriptor)
-    day_number = day.mday
-    case descriptor.downcase
-    when 'first'
-      (1..7).cover?(day_number)
-    when 'second'
-      (8..14).cover?(day_number)
-    when 'third'
-      (15..21).cover?(day_number)
-    when 'fourth'
-      (22..28).cover?(day_number)
-    when 'fifth'
-      (29..31).cover?(day_number)
-    when 'last'
-      days_in_month = @days.size
-      ((days_in_month - 6)..days_in_month).cover?(day_number)
-    when 'teenth'
-      (13..19).cover?(day_number)
-    end
+    start_day = first_day_to_search(descriptor)
+    (start_day..(start_day + 6)).cover?(day.mday)
+  end
+
+  def first_day_to_search(descriptor)
+    SCHEDULE_START_DAY.fetch(descriptor, special_starting_days(descriptor))
+  end
+
+  def special_starting_days(descriptor)
+    @days.size - 6 if descriptor == 'last'
   end
 end
