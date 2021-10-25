@@ -63,16 +63,21 @@ class Clock
     self
   end
 
+  def ==(other)
+    total_stored_minutes == other.total_stored_minutes
+  end
+
+  protected
+  def total_stored_minutes
+    @hours * MINUTES_PER_HOUR + @minutes
+  end
+
   private
   attr_reader :hours, :minutes
 
   def reset_time(total_minutes)
     bounded_minutes = total_minutes % MINUTES_PER_DAY
     @hours, @minutes = bounded_minutes.divmod(MINUTES_PER_HOUR)
-  end
-
-  def total_stored_minutes
-    @hours * MINUTES_PER_HOUR + @minutes
   end
 end
 
