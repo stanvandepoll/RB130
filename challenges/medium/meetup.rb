@@ -48,12 +48,13 @@ class Meetup
   def generate_days(year, month)
     generated_days = []
     day_number = 1
+    last_day_of_month = Date.civil(year, month, -1).mday
 
     loop do
       generated_days << Date.civil(year, month, day_number)
+      break if day_number == last_day_of_month
+
       day_number += 1
-    rescue Date::Error
-      break
     end
     generated_days
   end
