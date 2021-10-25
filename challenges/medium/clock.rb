@@ -48,36 +48,32 @@ class Clock
   end
 
   def to_s
-    "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}"
+    hours, remaining_minutes = minutes.divmod(MINUTES_PER_HOUR)
+    "#{hours.to_s.rjust(2, '0')}:#{remaining_minutes.to_s.rjust(2, '0')}"
   end
 
   def +(add_minutes)
-    total_minutes = total_stored_minutes + add_minutes
+    total_minutes = minutes + add_minutes
     reset_time(total_minutes)
     self
   end
 
   def -(subtract_minutes)
-    total_minutes = total_stored_minutes - subtract_minutes
+    total_minutes = minutes - subtract_minutes
     reset_time(total_minutes)
     self
   end
 
   def ==(other)
-    total_stored_minutes == other.total_stored_minutes
+    minutes == other.minutes
   end
 
   protected
-  def total_stored_minutes
-    @hours * MINUTES_PER_HOUR + @minutes
-  end
+  attr_reader :minutes
 
   private
-  attr_reader :hours, :minutes
-
   def reset_time(total_minutes)
-    bounded_minutes = total_minutes % MINUTES_PER_DAY
-    @hours, @minutes = bounded_minutes.divmod(MINUTES_PER_HOUR)
+    @minutes = total_minutes % MINUTES_PER_DAY
   end
 end
 
