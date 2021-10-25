@@ -36,10 +36,11 @@ require 'pry-byebug'
 class Clock
   MINUTES_PER_HOUR = 60
   HOURS_PER_DAY = 24
+  MINUTES_PER_DAY = 1440
 
   def initialize(set_hours, set_minutes)
-    extra_hours, @minutes = set_minutes.divmod(MINUTES_PER_HOUR)
-    @hours = (set_hours + extra_hours) % HOURS_PER_DAY
+    total_minutes = (set_hours * MINUTES_PER_HOUR) + set_minutes
+    reset_time(total_minutes)
   end
 
   def self.at(set_hours, set_minutes= 0)
@@ -47,9 +48,34 @@ class Clock
   end
 
   def to_s
-    "%02d:%02d" % [hours, minutes]
+    "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}"
+  end
+
+  def +(add_minutes)
+    total_minutes = total_stored_minutes + add_minutes
+    reset_time(total_minutes)
+    self
+  end
+
+  def -(subtract_minutes)
+    total_minutes = total_stored_minutes - subtract_minutes
+    reset_time(total_minutes)
+    self
   end
 
   private
   attr_reader :hours, :minutes
+
+  def reset_time(total_minutes)
+    bounded_minutes = total_minutes % MINUTES_PER_DAY
+    @hours, @minutes = bounded_minutes.divmod(MINUTES_PER_HOUR)
+  end
+
+  def total_stored_minutes
+    @hours * MINUTES_PER_HOUR + @minutes
+  end
 end
+
+# clock = Clock.at(10)
+# binding.pry
+# p clock.to_s

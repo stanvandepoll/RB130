@@ -12,7 +12,6 @@ class ClockTest < Minitest::Test
   end
 
   def test_add_a_few_minutes
-    skip
     clock = Clock.at(10) + 3
     assert_equal '10:03', clock.to_s
   end
