@@ -37,7 +37,10 @@ class Meetup
   end
 
   def day(weekday, descriptor)
-    @days.find { |day| day.send("#{weekday.downcase}?") && descriptive_match?(day, descriptor) }
+    @days.find do |day|
+      day.send("#{weekday.downcase}?") &&
+        descriptive_match?(day, descriptor)
+    end
   end
 
   private
@@ -56,11 +59,23 @@ class Meetup
   end
 
   def descriptive_match?(day, descriptor)
+    day_number = day.mday
     case descriptor.downcase
     when 'first'
-      (1..7).cover?(day.mday)
-    else
-      true
+      (1..7).cover?(day_number)
+    when 'second'
+      (8..14).cover?(day_number)
+    when 'third'
+      (15..21).cover?(day_number)
+    when 'fourth'
+      (22..28).cover?(day_number)
+    when 'fifth'
+      (29..31).cover?(day_number)
+    when 'last'
+      days_in_month = @days.size
+      ((days_in_month - 6)..days_in_month).cover?(day_number)
+    when 'teenth'
+      (13..19).cover?(day_number)
     end
   end
 end
