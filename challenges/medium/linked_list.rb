@@ -28,7 +28,7 @@ class Element
   end
 
   def tail?
-    true
+    @next.nil?
   end
 end
 
@@ -37,8 +37,23 @@ class SimpleLinkedList
     @elements = []
   end
 
+  def self.from_a(datums)
+    linked_list = new
+    datums ||= []
+    
+    datums.reverse.each do |datum|
+      linked_list.push(datum)
+    end
+    linked_list
+  end
+
   def push(datum)
     @elements.unshift(Element.new(datum, @elements.first))
+  end
+
+  def pop
+    popped_element = @elements.shift
+    popped_element.datum
   end
 
   def size

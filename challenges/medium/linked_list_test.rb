@@ -76,7 +76,6 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_push_10_items
-    skip
     list = SimpleLinkedList.new
     (1..10).each do |datum|
       list.push(datum)
@@ -86,7 +85,6 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_pop_1_item
-    skip
     list = SimpleLinkedList.new
     list.push(1)
     assert_equal 1, list.pop
@@ -94,7 +92,6 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_popping_frenzy
-    skip
     list = SimpleLinkedList.new
     (1..10).each do |datum|
       list.push(datum)
@@ -105,21 +102,18 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_from_a_empty_array
-    skip
     list = SimpleLinkedList.from_a([])
     assert_equal 0, list.size
     assert_nil list.peek
   end
 
   def test_from_a_nil
-    skip
     list = SimpleLinkedList.from_a(nil)
     assert_equal 0, list.size
     assert_nil list.peek
   end
 
   def test_from_a_2_element_array
-    skip
     list = SimpleLinkedList.from_a([1, 2])
     assert_equal 2, list.size
     assert_equal 1, list.peek
@@ -127,7 +121,6 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_from_a_10_items
-    skip
     list = SimpleLinkedList.from_a((1..10).to_a)
     assert_equal 10, list.size
     assert_equal 1, list.peek
