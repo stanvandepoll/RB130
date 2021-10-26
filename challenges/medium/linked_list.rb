@@ -33,9 +33,7 @@ class Element
 end
 
 class SimpleLinkedList
-  def initialize
-    @elements = []
-  end
+  attr_reader :head
 
   def self.from_a(datums)
     linked_list = new
@@ -48,7 +46,13 @@ class SimpleLinkedList
   end
 
   def to_a
-    elements.map(&:datum)
+    array = []
+    current_elem = head
+    while current_elem
+      array.push(current_elem.datum)
+      current_elem = current_elem.next
+    end
+    array
   end
 
   def reverse
@@ -57,30 +61,30 @@ class SimpleLinkedList
   end
 
   def push(datum)
-    elements.unshift(Element.new(datum, elements.first))
+    @head = Element.new(datum, @head)
   end
 
   def pop
-    popped_element = elements.shift
-    popped_element.datum
+    datum = peek
+    @head = @head.next
+    datum
   end
 
   def size
-    elements.size
+    size = 0
+    current_elem = @head
+    while (current_elem)
+      size += 1
+      current_elem = current_elem.next
+    end
+    size
   end
 
   def empty?
-    elements.empty?
+    head.nil?
   end
 
   def peek
     head&.datum
   end
-
-  def head
-    elements.first
-  end
-
-  private
-  attr_reader :elements
 end
