@@ -112,49 +112,42 @@ class CustomSetTest < Minitest::Test
   end
 
   def test_add_to_empty
-    skip
     set = CustomSet.new
     set.add(3)
     assert_equal CustomSet.new([3]), set
   end
 
   def test_add_to_non_empty
-    skip
     set = CustomSet.new([1, 2, 4]).add(3)
     expected = CustomSet.new([1, 2, 4, 3])
     assert_equal expected, set
   end
 
   def test_add_existing_element
-    skip
     set = CustomSet.new([1, 2, 3]).add(3)
     expected = CustomSet.new([1, 2, 3])
     assert_equal expected, set
   end
 
   def test_intersection_empty
-    skip
     set = CustomSet.new.intersection(CustomSet.new)
     expected = CustomSet.new
     assert_equal expected, set
   end
 
   def test_intersection_empty_and_non_empty
-    skip
     set = CustomSet.new.intersection(CustomSet.new([3, 2, 5]))
     expected = CustomSet.new
     assert_equal expected, set
   end
 
   def test_intersection_non_empty_and_empty
-    skip
     set = CustomSet.new([3, 2, 5]).intersection(CustomSet.new)
     expected = CustomSet.new
     assert_equal expected, set
   end
 
   def test_intersection_no_shared_elements
-    skip
     first_set = CustomSet.new([1, 2, 3])
     second_set = CustomSet.new([4, 5, 6])
     actual = first_set.intersection(second_set)
@@ -164,7 +157,6 @@ class CustomSetTest < Minitest::Test
   end
 
   def test_intersection_shared_elements
-    skip
     first_set = CustomSet.new([1, 2, 3, 4])
     second_set = CustomSet.new([3, 2, 5])
     actual = first_set.intersection(second_set)
@@ -174,55 +166,47 @@ class CustomSetTest < Minitest::Test
   end
 
   def test_difference_empty
-    skip
     actual = CustomSet.new.difference(CustomSet.new)
     assert_equal CustomSet.new, actual
   end
 
   def test_difference_empty_and_non_empty
-    skip
     actual = CustomSet.new.difference(CustomSet.new([3, 2, 5]))
     expected = CustomSet.new
     assert_equal expected, actual
   end
 
   def test_difference_non_empty_and_empty
-    skip
     actual = CustomSet.new([1, 2, 3, 4]).difference(CustomSet.new)
     expected = CustomSet.new([1, 2, 3, 4])
     assert_equal expected, actual
   end
 
   def test_difference_non_empty_sets
-    skip
     actual = CustomSet.new([3, 2, 1]).difference(CustomSet.new([2, 4]))
     expected = CustomSet.new([3, 1])
     assert_equal expected, actual
   end
 
   def test_union_empty
-    skip
     actual = CustomSet.new.union(CustomSet.new)
     expected = CustomSet.new
     assert_equal expected, actual
   end
 
   def test_union_empty_and_non_empty
-    skip
     actual = CustomSet.new.union(CustomSet.new([2]))
     expected = CustomSet.new([2])
     assert_equal expected, actual
   end
 
   def test_union_non_empty_and_empty
-    skip
     actual = CustomSet.new([1, 3]).union(CustomSet.new)
     expected = CustomSet.new([1, 3])
     assert_equal expected, actual
   end
 
   def test_union_non_empty_sets
-    skip
     actual = CustomSet.new([1, 3]).union(CustomSet.new([2, 3]))
     expected = CustomSet.new([1, 2, 3])
     assert_equal expected, actual
