@@ -16,10 +16,25 @@ class CustomSet
   end
 
   def empty?
-    @elements.empty?
+    elements.empty?
   end
 
   def contains?(integer)
-    @elements.include?(integer)
+    elements.include?(integer)
   end
+
+  def subset?(other)
+    (elements - other.elements).empty?
+  end
+
+  def disjoint?(other)
+    (elements & other.elements).empty?
+  end
+
+  def eql?(other)
+    elements.sort == other.elements.sort
+  end
+
+  protected
+  attr_reader :elements
 end

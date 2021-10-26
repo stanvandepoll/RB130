@@ -27,103 +27,86 @@ class CustomSetTest < Minitest::Test
   end
 
   def test_subset_empty
-    skip
     empty_set = CustomSet.new
     assert_equal true, empty_set.subset?(CustomSet.new)
   end
 
   def test_empty_is_subset_of_non_empty
-    skip
     empty_set = CustomSet.new
     assert_equal true, empty_set.subset?(CustomSet.new([1]))
   end
 
   def test_non_empty_not_subset_of_empty
-    skip
     set = CustomSet.new([1])
     assert_equal false, set.subset?(CustomSet.new)
   end
 
   def test_set_is_subset_of_same_set_of_elements
-    skip
     set = CustomSet.new([1, 2, 3])
     assert_equal true, set.subset?(CustomSet.new([1, 2, 3]))
   end
 
   def test_set_is_subset_of_larger_set
-    skip
     set = CustomSet.new([1, 2, 3])
     assert_equal true, set.subset?(CustomSet.new([4, 1, 2, 3]))
   end
 
   def test_not_subset_when_different_elements
-    skip
     set = CustomSet.new([1, 2, 3])
     assert_equal false, set.subset?(CustomSet.new([4, 1, 3]))
   end
 
   def test_disjoint_empty_set
-    skip
     empty_set = CustomSet.new
     assert_equal true, empty_set.disjoint?(CustomSet.new)
   end
 
   def test_disjoint_empty_and_non_empty
-    skip
     empty_set = CustomSet.new
     assert_equal true, empty_set.disjoint?(CustomSet.new([1]))
   end
 
   def test_disjoint_non_empty_and_empty
-    skip
     set = CustomSet.new([1])
     assert_equal true, set.disjoint?(CustomSet.new)
   end
 
   def test_disjoint_shared_element
-    skip
     set = CustomSet.new([1, 2])
     assert_equal false, set.disjoint?(CustomSet.new([2, 3]))
   end
 
   def test_disjoint_no_shared_elements
-    skip
     set = CustomSet.new([1, 2])
     assert_equal true, set.disjoint?(CustomSet.new([3, 4]))
   end
 
   def test_eql_empty
-    skip
     empty_set = CustomSet.new
     assert_equal true, empty_set.eql?(CustomSet.new)
   end
 
   def test_eql_empty_and_non_empty
-    skip
     empty_set = CustomSet.new
     assert_equal false, empty_set.eql?(CustomSet.new([1, 2, 3]))
   end
 
   def test_eql_non_empty_and_empty
-    skip
     empty_set = CustomSet.new([1, 2, 3])
     assert_equal false, empty_set.eql?(CustomSet.new)
   end
 
   def test_eql_same_elements
-    skip
     set = CustomSet.new([1, 2])
     assert_equal true, set.eql?(CustomSet.new([2, 1]))
   end
 
   def test_eql_different_elements
-    skip
     set = CustomSet.new([1, 2, 3])
     assert_equal false, set.eql?(CustomSet.new([1, 2, 4]))
   end
 
   def test_eql_duplicate_elements_do_not_matter
-    skip
     set = CustomSet.new([1, 2, 2, 1])
     assert_equal true, set.eql?(CustomSet.new([2, 1]))
   end
