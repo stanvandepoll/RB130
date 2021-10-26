@@ -20,9 +20,24 @@ test cases:
 =end
 
 class Element
-  attr_reader :datum
-  
-  def initialize(datum)
+  attr_reader :datum, :next
+
+  def initialize(datum, next_element= nil)
     @datum = datum
+    @next = next_element
+  end
+
+  def tail?
+    true
+  end
+end
+
+class SimpleLinkedList
+  def size
+    0
+  end
+
+  def empty?
+    true
   end
 end
