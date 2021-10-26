@@ -33,11 +33,27 @@ class Element
 end
 
 class SimpleLinkedList
+  def initialize
+    @elements = []
+  end
+
+  def push(datum)
+    @elements.unshift(Element.new(datum, @elements.first))
+  end
+
   def size
-    0
+    @elements.size
   end
 
   def empty?
-    true
+    @elements.empty?
+  end
+
+  def peek
+    head&.datum
+  end
+
+  def head
+    @elements.first
   end
 end
